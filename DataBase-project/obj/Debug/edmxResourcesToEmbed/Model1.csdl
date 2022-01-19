@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Final_hospitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="doctor_schedule">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="doctor_id" Type="Int64" Nullable="false" />
+    <Property Name="schedule_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="doctor" Relationship="Self.FK_doctor_schedule_doctors" FromRole="doctor_schedule" ToRole="doctors" />
+    <NavigationProperty Name="schedule_of_on_call" Relationship="Self.FK_doctor_schedule_schedule_of_on_call" FromRole="doctor_schedule" ToRole="schedule_of_on_call" />
+    <NavigationProperty Name="visits" Relationship="Self.FK_visits_doctor_schedule" FromRole="doctor_schedule" ToRole="visits" />
+  </EntityType>
+  <EntityType Name="doctor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="first_name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="last_name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="mobile_number" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="national_code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="room_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="doctor_schedule" Relationship="Self.FK_doctor_schedule_doctors" FromRole="doctors" ToRole="doctor_schedule" />
+    <NavigationProperty Name="room" Relationship="Self.FK_doctors_rooms" FromRole="doctors" ToRole="rooms" />
+  </EntityType>
+  <EntityType Name="medical_records">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+    <Property Name="infection_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="recovery_date" Type="DateTime" Precision="3" />
+    <Property Name="patient_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="patient" Relationship="Self.FK_medical_records_patients" FromRole="medical_records" ToRole="patients" />
+  </EntityType>
+  <EntityType Name="patient">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="first_name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="last_name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="mobile_number" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="national_code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="medical_records" Relationship="Self.FK_medical_records_patients" FromRole="patients" ToRole="medical_records" />
+    <NavigationProperty Name="visits" Relationship="Self.FK_visits_patients" FromRole="patients" ToRole="visits" />
+  </EntityType>
+  <EntityType Name="room">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="500" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="doctors" Relationship="Self.FK_doctors_rooms" FromRole="rooms" ToRole="doctors" />
+  </EntityType>
+  <EntityType Name="schedule_of_on_call">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="shift" Type="Int32" Nullable="false" />
+    <Property Name="day" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="doctor_schedule" Relationship="Self.FK_doctor_schedule_schedule_of_on_call" FromRole="schedule_of_on_call" ToRole="doctor_schedule" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="visit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="doctor_schedule_id" Type="Int64" Nullable="false" />
+    <Property Name="patient_id" Type="Int64" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="doctor_schedule" Relationship="Self.FK_visits_doctor_schedule" FromRole="visits" ToRole="doctor_schedule" />
+    <NavigationProperty Name="patient" Relationship="Self.FK_visits_patients" FromRole="visits" ToRole="patients" />
+  </EntityType>
+  <Association Name="FK_doctor_schedule_doctors">
+    <End Role="doctors" Type="Self.doctor" Multiplicity="1" />
+    <End Role="doctor_schedule" Type="Self.doctor_schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="doctors">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="doctor_schedule">
+        <PropertyRef Name="doctor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_doctor_schedule_schedule_of_on_call">
+    <End Role="schedule_of_on_call" Type="Self.schedule_of_on_call" Multiplicity="1" />
+    <End Role="doctor_schedule" Type="Self.doctor_schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="schedule_of_on_call">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="doctor_schedule">
+        <PropertyRef Name="schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_visits_doctor_schedule">
+    <End Role="doctor_schedule" Type="Self.doctor_schedule" Multiplicity="1" />
+    <End Role="visits" Type="Self.visit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="doctor_schedule">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="visits">
+        <PropertyRef Name="doctor_schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_doctors_rooms">
+    <End Role="rooms" Type="Self.room" Multiplicity="1" />
+    <End Role="doctors" Type="Self.doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rooms">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="doctors">
+        <PropertyRef Name="room_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_medical_records_patients">
+    <End Role="patients" Type="Self.patient" Multiplicity="1" />
+    <End Role="medical_records" Type="Self.medical_records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="medical_records">
+        <PropertyRef Name="patient_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_visits_patients">
+    <End Role="patients" Type="Self.patient" Multiplicity="1" />
+    <End Role="visits" Type="Self.visit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="visits">
+        <PropertyRef Name="patient_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HospitalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="doctor_schedule" EntityType="Self.doctor_schedule" />
+    <EntitySet Name="doctors" EntityType="Self.doctor" />
+    <EntitySet Name="medical_records" EntityType="Self.medical_records" />
+    <EntitySet Name="patients" EntityType="Self.patient" />
+    <EntitySet Name="rooms" EntityType="Self.room" />
+    <EntitySet Name="schedule_of_on_call" EntityType="Self.schedule_of_on_call" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="visits" EntityType="Self.visit" />
+    <AssociationSet Name="FK_doctor_schedule_doctors" Association="Self.FK_doctor_schedule_doctors">
+      <End Role="doctors" EntitySet="doctors" />
+      <End Role="doctor_schedule" EntitySet="doctor_schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_doctor_schedule_schedule_of_on_call" Association="Self.FK_doctor_schedule_schedule_of_on_call">
+      <End Role="schedule_of_on_call" EntitySet="schedule_of_on_call" />
+      <End Role="doctor_schedule" EntitySet="doctor_schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_visits_doctor_schedule" Association="Self.FK_visits_doctor_schedule">
+      <End Role="doctor_schedule" EntitySet="doctor_schedule" />
+      <End Role="visits" EntitySet="visits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_doctors_rooms" Association="Self.FK_doctors_rooms">
+      <End Role="rooms" EntitySet="rooms" />
+      <End Role="doctors" EntitySet="doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_medical_records_patients" Association="Self.FK_medical_records_patients">
+      <End Role="patients" EntitySet="patients" />
+      <End Role="medical_records" EntitySet="medical_records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_visits_patients" Association="Self.FK_visits_patients">
+      <End Role="patients" EntitySet="patients" />
+      <End Role="visits" EntitySet="visits" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

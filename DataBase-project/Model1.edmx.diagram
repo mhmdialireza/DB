@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="94950f766ad640d1830e3c5b8192e135" Name="Diagram1">
+        <EntityTypeShape EntityType="Final_hospitalModel.doctor_schedule" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.doctor" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.medical_records" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.patient" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.room" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.schedule_of_on_call" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Final_hospitalModel.visit" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="Final_hospitalModel.FK_doctor_schedule_doctors" ManuallyRouted="false" />
+        <AssociationConnector Association="Final_hospitalModel.FK_doctor_schedule_schedule_of_on_call" ManuallyRouted="false" />
+        <AssociationConnector Association="Final_hospitalModel.FK_visits_doctor_schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="Final_hospitalModel.FK_doctors_rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="Final_hospitalModel.FK_medical_records_patients" ManuallyRouted="false" />
+        <AssociationConnector Association="Final_hospitalModel.FK_visits_patients" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
