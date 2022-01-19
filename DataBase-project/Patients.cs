@@ -167,7 +167,7 @@ namespace DataBase_project
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            (new Visits()).Show();
         }
     }
 }

@@ -81,11 +81,14 @@ namespace DataBase_project
         {
             this.dCombo.Items.Clear();
 
-            visitDatetime = DateTime.Parse(this.monthCalendar1.SelectionStart.ToShortDateString());
+            visitDatetime = DateTime.Parse(
+                this.monthCalendar1.SelectionStart.ToShortDateString()
+                );
+
             convertDay(visitDatetime.DayOfWeek.ToString().Trim());
 
             var sooc = context.schedule_of_on_call
-                .Where(s => s.day == fDay)
+                .Where(s => s.day.Trim() == fDay.Trim())
                 .Select(s => s.id).ToList();
 
             var pivotDS = context.doctor_schedule
@@ -337,6 +340,11 @@ namespace DataBase_project
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            (new SearchVisit()).Show();
+        }
+
         private bool inArray(List<int> numbers, int number)
         {
             for (int i = 0; i < numbers.Count; i++)
@@ -363,5 +371,4 @@ namespace DataBase_project
             t = true;
         }
     }
-
 }

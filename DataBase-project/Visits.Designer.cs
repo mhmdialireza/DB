@@ -30,10 +30,6 @@ namespace DataBase_project
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.searchBox = new System.Windows.Forms.TextBox();
             this.operations = new System.Windows.Forms.GroupBox();
             this.cleanB = new System.Windows.Forms.Button();
             this.update = new System.Windows.Forms.Button();
@@ -53,64 +49,16 @@ namespace DataBase_project
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.button1 = new System.Windows.Forms.Button();
             this.operations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.final_hospitalDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView
-            // 
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.dataGridView.Location = new System.Drawing.Point(61, 417);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(942, 334);
-            this.dataGridView.TabIndex = 29;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.searchBox);
-            this.groupBox2.Font = new System.Drawing.Font("IRAN Sans", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.groupBox2.Location = new System.Drawing.Point(56, 279);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox2.Size = new System.Drawing.Size(948, 123);
-            this.groupBox2.TabIndex = 28;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "جست‌وجو";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(797, 54);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(145, 43);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "در تمام فیلد ها";
-            // 
-            // searchBox
-            // 
-            this.searchBox.Location = new System.Drawing.Point(47, 51);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(735, 48);
-            this.searchBox.TabIndex = 17;
-            // 
             // operations
             // 
+            this.operations.Controls.Add(this.button1);
             this.operations.Controls.Add(this.cleanB);
             this.operations.Controls.Add(this.update);
             this.operations.Controls.Add(this.button5);
@@ -187,12 +135,12 @@ namespace DataBase_project
             this.groupBox1.Controls.Add(this.dCombo);
             this.groupBox1.Controls.Add(this.monthCalendar1);
             this.groupBox1.Font = new System.Drawing.Font("IRAN Sans", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.groupBox1.Location = new System.Drawing.Point(56, 14);
+            this.groupBox1.Location = new System.Drawing.Point(39, 44);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(948, 269);
+            this.groupBox1.Size = new System.Drawing.Size(948, 689);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "انتخاب زمان";
@@ -200,7 +148,7 @@ namespace DataBase_project
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(831, 215);
+            this.label4.Location = new System.Drawing.Point(831, 463);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 43);
             this.label4.TabIndex = 6;
@@ -209,7 +157,7 @@ namespace DataBase_project
             // pCombo
             // 
             this.pCombo.FormattingEnabled = true;
-            this.pCombo.Location = new System.Drawing.Point(394, 209);
+            this.pCombo.Location = new System.Drawing.Point(394, 457);
             this.pCombo.Name = "pCombo";
             this.pCombo.Size = new System.Drawing.Size(428, 49);
             this.pCombo.TabIndex = 5;
@@ -217,7 +165,7 @@ namespace DataBase_project
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(831, 137);
+            this.label3.Location = new System.Drawing.Point(831, 304);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 43);
             this.label3.TabIndex = 4;
@@ -226,7 +174,7 @@ namespace DataBase_project
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(828, 54);
+            this.label1.Location = new System.Drawing.Point(828, 221);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 43);
             this.label1.TabIndex = 3;
@@ -235,7 +183,7 @@ namespace DataBase_project
             // tCombo
             // 
             this.tCombo.FormattingEnabled = true;
-            this.tCombo.Location = new System.Drawing.Point(394, 131);
+            this.tCombo.Location = new System.Drawing.Point(394, 298);
             this.tCombo.Name = "tCombo";
             this.tCombo.Size = new System.Drawing.Size(428, 49);
             this.tCombo.TabIndex = 2;
@@ -245,7 +193,7 @@ namespace DataBase_project
             // dCombo
             // 
             this.dCombo.FormattingEnabled = true;
-            this.dCombo.Location = new System.Drawing.Point(394, 48);
+            this.dCombo.Location = new System.Drawing.Point(394, 215);
             this.dCombo.Name = "dCombo";
             this.dCombo.Size = new System.Drawing.Size(428, 49);
             this.dCombo.TabIndex = 1;
@@ -254,7 +202,7 @@ namespace DataBase_project
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(12, 37);
+            this.monthCalendar1.Location = new System.Drawing.Point(33, 215);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 0;
             // 
@@ -262,20 +210,26 @@ namespace DataBase_project
             // 
             this.patientsTableAdapter.ClearBeforeFill = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(18, 440);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(148, 102);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "مشاهده ویزیت ها";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Visits
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 767);
-            this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.operations);
             this.Controls.Add(this.groupBox1);
             this.Name = "Visits";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Visits";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.operations.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.final_hospitalDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).EndInit();
@@ -286,11 +240,6 @@ namespace DataBase_project
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.GroupBox operations;
         private System.Windows.Forms.Button cleanB;
         private System.Windows.Forms.Button update;
@@ -310,5 +259,6 @@ namespace DataBase_project
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox pCombo;
+        private System.Windows.Forms.Button button1;
     }
 }

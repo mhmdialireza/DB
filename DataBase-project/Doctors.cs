@@ -18,9 +18,7 @@ namespace DataBase_project
         public Doctors()
         {
             InitializeComponent();
-            DateTime now = DateTime.Now;
-            string s = now.DayOfWeek.ToString();
-            this.IFName.Text = s;
+
             var pIds = context.rooms.Select(p => p.id).ToList();
             pIds.ForEach(id => comboBox1.Items.Add(id));
 
@@ -44,10 +42,10 @@ namespace DataBase_project
         private bool checkInputs()
         {
             if (
-                this.IFName.Text == "" ||
-                this.ILName.Text == "" ||
-                this.IMNumber.Text == "" ||
-                this.INCode.Text == "" ||
+                this.IFName.Text.Trim() == "" ||
+                this.ILName.Text.Trim() == "" ||
+                this.IMNumber.Text.Trim() == "" ||
+                this.INCode.Text.Trim() == "" ||
                 this.comboBox1.SelectedIndex == -1
                 )
             {
@@ -78,19 +76,24 @@ namespace DataBase_project
         {
             if (checkInputs())
             {
-                doctor.first_name = this.IFName.Text;
-                doctor.last_name = this.ILName.Text;
-                doctor.mobile_number = this.IMNumber.Text;
-                doctor.national_code = this.INCode.Text;
-                doctor.date_of_birth = this.dateTimePicker1.Value;
-                doctor.room_id = Int32.Parse(this.comboBox1.SelectedItem.ToString());
+                try
+                {
+                    doctor.first_name = this.IFName.Text.Trim();
+                    doctor.last_name = this.ILName.Text.Trim();
+                    doctor.mobile_number = this.IMNumber.Text.Trim();
+                    doctor.national_code = this.INCode.Text.Trim();
+                    doctor.date_of_birth = this.dateTimePicker1.Value;
+                    doctor.room_id = Int32.Parse(this.comboBox1.SelectedItem.ToString());
 
-                context.doctors.Add(doctor);
-                context.SaveChanges();
+                    context.doctors.Add(doctor);
+                    context.SaveChanges();
 
-                MessageBox.Show("اطلاعات با موفقیت ثبت شد");
+                    MessageBox.Show("اطلاعات با موفقیت ثبت شد");
 
-                reloadGrid();
+                    clean();
+                    reloadGrid();
+                }
+                catch { MessageBox.Show("عملیات با خطا مواجه شد"); }
             }
         }
 
@@ -102,7 +105,7 @@ namespace DataBase_project
             this.IMNumber.Text = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString().Trim();
             this.INCode.Text = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString().Trim();
             this.comboBox1.SelectedItem = dataGridView.Rows[e.RowIndex].Cells[6].Value.ToString().Trim();
-    
+
 
             var roomIds = context.rooms.Select(p => p.id).ToList();
             int selectedIndex = -1;
@@ -118,10 +121,10 @@ namespace DataBase_project
             if (checkInputs())
             {
                 var d = context.doctors.Find(id);
-                d.first_name = this.IFName.Text;
-                d.last_name = this.ILName.Text;
-                d.mobile_number = this.IMNumber.Text;
-                d.national_code = this.INCode.Text;
+                d.first_name = this.IFName.Text.Trim();
+                d.last_name = this.ILName.Text.Trim();
+                d.mobile_number = this.IMNumber.Text.Trim();
+                d.national_code = this.INCode.Text.Trim();
                 d.date_of_birth = this.dateTimePicker1.Value;
                 d.room_id = Int32.Parse(this.comboBox1.SelectedItem.ToString());
 
@@ -129,6 +132,7 @@ namespace DataBase_project
 
                 MessageBox.Show("اطلاعات با موفقیت بروزرسانی شد");
 
+                clean();
                 reloadGrid();
             }
         }
@@ -145,10 +149,11 @@ namespace DataBase_project
                     MessageBox.Show("پزشک مورد نظر با موفقیت حذف شد");
 
                     reloadGrid();
+                    clean();
                 }
                 catch
                 {
-                    MessageBox.Show("خطا");
+                    MessageBox.Show("دکتر دارای تایم ویزیت است ،‌شما قادر به حذف آن نیستید");
                 }
             }
         }
@@ -183,5 +188,6 @@ namespace DataBase_project
             clean();
             reloadGrid();
         }
+
     }
 }
