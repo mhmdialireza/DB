@@ -21,5 +21,15 @@ namespace DataBase_project
         {
             (new Patients()).Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            (new Doctors()).Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            (new Rooms()).Show();
+        }
     }
 }

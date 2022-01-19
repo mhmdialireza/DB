@@ -27,7 +27,9 @@ namespace DataBase_project
 
         private bool checkInputs()
         {
-            if (this.IFName.Text == "" || string.IsNullOrEmpty(this.comboBox.Text))
+            if (
+                this.IFName.Text.Trim() == "" ||
+                string.IsNullOrEmpty(this.comboBox.Text))
             {
                 MessageBox.Show("مقادیر مقابل را پر کنید");
                 return false;
@@ -71,13 +73,13 @@ namespace DataBase_project
             {
                 var mr = new medical_records();
 
-                mr.name = this.IFName.Text;
-                mr.description = this.IDC.Text;
+                mr.name = this.IFName.Text.Trim();
+                mr.description = this.IDC.Text.Trim();
                 mr.infection_date = this.dateTimePicker1.Value;
                 if (!this.checkBox1.Checked)
                     mr.recovery_date = this.dateTimePicker2.Value;
 
-                mr.patient_id = Convert.ToInt64(this.comboBox.Text);
+                mr.patient_id = Convert.ToInt64(this.comboBox.Text.Trim());
 
                 context.medical_records.Add(mr);
                 context.SaveChanges();
@@ -94,11 +96,11 @@ namespace DataBase_project
             dataGridView.DataSource = context.medical_records.Select(m => new
             {
                 m.id,
-                m.name,
-                m.description,
-                m.infection_date,
-                m.recovery_date,
-                m.patient_id
+                name = m.name.Trim(),
+                description = m.description.Trim(),
+                infection_date = m.infection_date.ToString().Trim(),
+                recovery_date = m.recovery_date.ToString().Trim(),
+                patient_id = m.patient_id.ToString().Trim()
             }).ToList();
         }
 
@@ -201,7 +203,7 @@ namespace DataBase_project
                 var fPatients = context.medical_records.Where(p =>
                     (p.id.ToString().Contains(searchBox.Text) ||
                     p.name.Contains(searchBox.Text) ||
-                    p.description.Contains(searchBox.Text))  &&
+                    p.description.Contains(searchBox.Text)) &&
                     p.patient_id.ToString().Contains(comboBox1.Text)
                 );
 
@@ -226,7 +228,7 @@ namespace DataBase_project
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-           
+
         }
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)

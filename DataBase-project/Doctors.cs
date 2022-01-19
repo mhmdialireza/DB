@@ -96,18 +96,18 @@ namespace DataBase_project
 
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            id = int.Parse(dataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-            this.IFName.Text = dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-            this.ILName.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-            this.IMNumber.Text = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-            this.INCode.Text = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-            this.comboBox1.SelectedItem = dataGridView.Rows[e.RowIndex].Cells[6].Value.ToString();
+            id = int.Parse(dataGridView.Rows[e.RowIndex].Cells[0].Value.ToString().Trim());
+            this.IFName.Text = dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString().Trim();
+            this.ILName.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString().Trim();
+            this.IMNumber.Text = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString().Trim();
+            this.INCode.Text = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString().Trim();
+            this.comboBox1.SelectedItem = dataGridView.Rows[e.RowIndex].Cells[6].Value.ToString().Trim();
     
 
             var roomIds = context.rooms.Select(p => p.id).ToList();
             int selectedIndex = -1;
             for (int i = 0; i < roomIds.Count(); i++)
-                if (dataGridView.Rows[e.RowIndex].Cells[6].Value.ToString() == roomIds[i].ToString())
+                if (dataGridView.Rows[e.RowIndex].Cells[6].Value.ToString().Trim() == roomIds[i].ToString().Trim())
                     selectedIndex = i;
 
             this.comboBox1.SelectedIndex = selectedIndex;
@@ -156,12 +156,12 @@ namespace DataBase_project
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
             var fD = context.doctors.Where(d =>
-                d.id.ToString().Contains(searchBox.Text) ||
-                d.first_name.Contains(searchBox.Text) ||
-                d.last_name.Contains(searchBox.Text) ||
-                d.national_code.Contains(searchBox.Text) ||
-                d.national_code.Contains(searchBox.Text) ||
-                d.room_id.ToString().Contains(searchBox.Text)
+                d.id.ToString().Contains(searchBox.Text.Trim()) ||
+                d.first_name.Contains(searchBox.Text.Trim()) ||
+                d.last_name.Contains(searchBox.Text.Trim()) ||
+                d.national_code.Contains(searchBox.Text.Trim()) ||
+                d.mobile_number.Contains(searchBox.Text.Trim()) ||
+                d.room_id.ToString().Contains(searchBox.Text.Trim())
             ).Select(D => new
             {
                 D.id,

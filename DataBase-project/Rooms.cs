@@ -25,9 +25,9 @@ namespace DataBase_project
         {
             dataGridView.DataSource = context.rooms.Select(m => new
             {
-                m.id,
-                m.name,
-                m.description
+                id = m.id.ToString().Trim(),
+                name = m.name.ToString().Trim(),
+                description = m.description.ToString().Trim()
             }).ToList();
         }
 
@@ -35,16 +35,23 @@ namespace DataBase_project
         {
             if (checkInputs())
             {
-                room.name = this.IFName.Text;
-                room.description = this.ILName.Text;
+                try
+                {
+                    room.name = this.IFName.Text.Trim();
+                    room.description = this.ILName.Text.Trim();
 
-                context.rooms.Add(room);
-                context.SaveChanges();
+                    context.rooms.Add(room);
+                    context.SaveChanges();
 
-                MessageBox.Show("اطلاعات با موفقیت ثبت شد");
+                    MessageBox.Show("اطلاعات با موفقیت ثبت شد");
 
-                clean();
-                reloadGrid();
+                    clean();
+                    reloadGrid();
+                }
+                catch
+                {
+                    MessageBox.Show("عملیات با خطا مواجه شد");
+                }
             }
         }
 
@@ -63,8 +70,8 @@ namespace DataBase_project
             if (checkInputs())
             {
                 var r = context.rooms.Find(id);
-                r.name = this.IFName.Text;
-                r.description = this.ILName.Text;
+                r.name = this.IFName.Text.Trim();
+                r.description = this.ILName.Text.Trim();
 
                 context.SaveChanges();
 
@@ -77,15 +84,52 @@ namespace DataBase_project
 
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            id = int.Parse(dataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-            this.IFName.Text = dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-            this.ILName.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+            id = int.Parse(dataGridView.Rows[e.RowIndex].Cells[0].Value.ToString().Trim());
+            this.IFName.Text = dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString().Trim();
+            this.ILName.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString().Trim();
         }
 
         private void clean()
         {
             this.IFName.Text = "";
             this.ILName.Text = "";
+            this.searchBox.Text = "";
+        }
+
+        private void cleanB_Click(object sender, EventArgs e)
+        {
+            clean();
+        }
+
+        private void searchBox_TextChanged(object sender, EventArgs e)
+        {
+            var roomName = this.searchBox.Text.Trim();
+
+            dataGridView.DataSource = context.rooms
+                .Where(r => r.name.Trim().Contains(roomName))
+                .Select(m => new
+            {
+                m.id,
+                m.name,
+                m.description
+            }).ToList();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dRoom = context.rooms.Find(id);
+
+                context.rooms.Remove(dRoom);
+                context.SaveChanges();
+
+                MessageBox.Show("اتاق با موفقیت پاک شد");
+            }
+            catch
+            {
+                MessageBox.Show("عملیات با خطا مواجه شد");
+            }
         }
     }
 }

@@ -49,36 +49,50 @@ namespace DataBase_project
         {
             if (checkInputs())
             {
-                patient.first_name = this.IFName.Text;
-                patient.last_name = this.ILName.Text;
-                patient.mobile_number = this.IMNumber.Text;
-                patient.national_code = this.INCode.Text;
-                patient.date_of_birth = this.dateTimePicker1.Value;
+                try
+                {
+                    patient.first_name = this.IFName.Text.Trim();
+                    patient.last_name = this.ILName.Text.Trim();
+                    patient.mobile_number = this.IMNumber.Text.Trim();
+                    patient.national_code = this.INCode.Text.Trim();
+                    patient.date_of_birth = this.dateTimePicker1.Value;
 
-                context.patients.Add(patient);
-                context.SaveChanges();
+                    context.patients.Add(patient);
+                    context.SaveChanges();
 
-                MessageBox.Show("اطلاعات با موفقیت ثبت شد");
+                    MessageBox.Show("اطلاعات با موفقیت ثبت شد");
 
-                reloadGrid();
+                    reloadGrid();
+                }
+                catch
+                {
+                    MessageBox.Show("عملیات با خطا مواجه شد");
+                }
             }
         }
         private void update_Click(object sender, EventArgs e)
         {
             if (checkInputs())
             {
-                var up = context.patients.Find(id);
-                up.first_name = this.IFName.Text;
-                up.last_name = this.ILName.Text;
-                up.mobile_number = this.IMNumber.Text;
-                up.national_code = this.INCode.Text;
-                up.date_of_birth = this.dateTimePicker1.Value;
+                try
+                {
+                    var up = context.patients.Find(id);
+                    up.first_name = this.IFName.Text.Trim();
+                    up.last_name = this.ILName.Text.Trim();
+                    up.mobile_number = this.IMNumber.Text.Trim();
+                    up.national_code = this.INCode.Text.Trim();
+                    up.date_of_birth = this.dateTimePicker1.Value;
 
-                context.SaveChanges();
+                    context.SaveChanges();
 
-                MessageBox.Show("اطلاعات با موفقیت بروزرسانی شد");
+                    MessageBox.Show("اطلاعات با موفقیت بروزرسانی شد");
 
-                reloadGrid();
+                    reloadGrid();
+                }
+                catch
+                {
+                    MessageBox.Show("عملیات با خطا مواجه شد");
+                }
             }
         }
         private void delete(object sender, EventArgs e)
@@ -87,8 +101,8 @@ namespace DataBase_project
             {
                 try
                 {
-                    var up = context.rooms.Find(id);
-                    context.rooms.Remove(up);
+                    var up = context.patients.Find(id);
+                    context.patients.Remove(up);
                     context.SaveChanges();
                     MessageBox.Show("اتاق مورد نظر با موفقیت حذف شد");
 
@@ -102,17 +116,11 @@ namespace DataBase_project
         }
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            id = int.Parse(dataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-            this.IFName.Text = dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-            this.ILName.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-            this.IMNumber.Text = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-            this.INCode.Text = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-
-            //this.dateTimePicker1 = DateTime.Parse();
-            //var x = dataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
-            //String s1 = dataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
-            //var dt = DateTime.Parse(s1);
-            //this.dateTimePicker1 = dt;
+            id = int.Parse(dataGridView.Rows[e.RowIndex].Cells[0].Value.ToString().Trim());
+            this.IFName.Text = dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString().Trim();
+            this.ILName.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString().Trim();
+            this.IMNumber.Text = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString().Trim();
+            this.INCode.Text = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString().Trim();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -127,10 +135,10 @@ namespace DataBase_project
         private bool checkInputs()
         {
             if (
-                this.IFName.Text == "" ||
-                this.ILName.Text == "" ||
-                this.IMNumber.Text == "" ||
-                this.INCode.Text == ""
+                this.IFName.Text.Trim() == "" ||
+                this.ILName.Text.Trim() == "" ||
+                this.IMNumber.Text.Trim() == "" ||
+                this.INCode.Text.Trim() == ""
                 )
             {
                 MessageBox.Show("مقادیر مقابل را پر کنید");
@@ -142,11 +150,11 @@ namespace DataBase_project
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             var fPatients = context.patients.Where(p =>
-                p.id.ToString().Contains(searchBox.Text) ||
-                p.first_name.Contains(searchBox.Text) ||
-                p.last_name.Contains(searchBox.Text) ||
-                p.national_code.Contains(searchBox.Text) ||
-                p.mobile_number.Contains(searchBox.Text)
+                p.id.ToString().Contains(searchBox.Text.Trim()) ||
+                p.first_name.Contains(searchBox.Text.Trim()) ||
+                p.last_name.Contains(searchBox.Text.Trim()) ||
+                p.national_code.Contains(searchBox.Text.Trim()) ||
+                p.mobile_number.Contains(searchBox.Text.Trim())
             );
 
             dataGridView.DataSource = fPatients.ToList();
